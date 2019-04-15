@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.TextFlow?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kmf.aut.controller.Controller">
+    <center>
+        <HBox id="HBLights" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox id="VBLight1" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="150.0">
+                    <children>
+                        <Label text="Main Light" />
+                        <TextFlow prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ff0000;">
+                            <VBox.margin>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </VBox.margin>
+                        </TextFlow>
+                        <Button mnemonicParsing="false" text="Toggle" />
+                    </children>
+                </VBox>
+                <VBox id="VBLight2" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="150.0">
+                    <children>
+                        <Label text="Bathroom Light" />
+                        <TextFlow id="TFBathroomLightState" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00ff00;">
+                            <VBox.margin>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </VBox.margin>
+                        </TextFlow>
+                        <Button id="BtnToggleBathroom" mnemonicParsing="false" text="Toggle" />
+                    </children>
+                </VBox>
+                <VBox id="VBLight3" alignment="TOP_CENTER" prefHeight="50.0" prefWidth="150.0">
+                    <children>
+                        <Label text="Desk Lamp" />
+                        <TextFlow prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ff0000;">
+                            <VBox.margin>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </VBox.margin>
+                        </TextFlow>
+                        <Button mnemonicParsing="false" text="Toggle" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </center>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+</BorderPane>
