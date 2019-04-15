@@ -2,17 +2,11 @@ package io.github.kmfrick.homeaut.model;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
-import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
-import com.pi4j.io.gpio.PinPullResistance;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
-import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
-import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
 public class Stepper {
-
-
     private final GpioController gpio = GpioFactory.getInstance();
     private final GpioPinDigitalOutput uln1 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_21);
     private final GpioPinDigitalOutput uln2 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_22);
@@ -31,7 +25,11 @@ public class Stepper {
             {PinState.LOW,PinState.LOW,PinState.LOW,PinState.HIGH}, 
             {PinState.HIGH,PinState.LOW,PinState.LOW,PinState.HIGH}
         };
-        
+    }
+
+    public static Boolean salute(String i) {
+        System.out.println("I salute you! " + i);
+        return true;
     }
 
     public void setStep(PinState w1, PinState w2, PinState w3, PinState w4) {
@@ -41,10 +39,9 @@ public class Stepper {
         uln4.setState(w4);
     }
 
-
     public void forward(Integer delay, Integer steps) throws InterruptedException {
-        for (int i = 0; i < steps; i++){
-            for (int j = 0; j < Seq.length; j++) {
+        for (var i = 0; i < steps; i++){
+            for (var j = 0; j < Seq.length; j++) {
                 setStep(Seq[j][0], Seq[j][1], Seq[j][2], Seq[j][3]);
                 Thread.sleep(delay);
             }
@@ -53,14 +50,12 @@ public class Stepper {
     }
 
     public void backward(Integer delay, Integer steps) throws InterruptedException {
-        for (int i = 0; i < steps; i++){
-            for (int j = Seq.length - 1; j >= 0; j--) {
+        for (var i = 0; i < steps; i++){
+            for (var j = Seq.length - 1; j >= 0; j--) {
                 setStep(Seq[j][0], Seq[j][1], Seq[j][2], Seq[j][3]);
                 Thread.sleep(delay);
             }
         }
        setStep(PinState.LOW, PinState.LOW, PinState.LOW, PinState.LOW);
     }
-
-  
 }
