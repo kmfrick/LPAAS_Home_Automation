@@ -1,4 +1,4 @@
-package io.github.kmfrick.homeaut.view;
+package io.github.kmfrick.homeaut;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ public class View extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("View.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("./View.fxml"));
         primaryStage.setTitle("Light Switch Toggler");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

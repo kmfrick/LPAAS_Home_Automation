@@ -1,4 +1,4 @@
-package io.github.kmfrick.homeaut.view;
+package io.github.kmfrick.homeaut;
 
 public class Main {
     public static void main(String[] args) {
