@@ -15,7 +15,6 @@ import javafx.scene.text.TextFlow;
 public class Controller {
 
     private static final Prolog engine = new Prolog();
-	
     private static final Library oolib = engine.getLibrary("alice.tuprolog.lib.OOLibrary");
     private static final StringBuilder outputSB = new StringBuilder();
 
@@ -25,6 +24,33 @@ public class Controller {
     private TextFlow MainTF;
     @FXML
     private CheckBox ToggleMainCB;
+
+    public Controller() {
+        try {
+            // Allow outputting debug stuff to Java
+            engine.addOutputListener(new OutputListener() {
+                @Override
+                public void onOutput(OutputEvent e) {
+                    outputSB.append(e.getMsg());
+                }
+            });
+            // Define interface predicates
+            engine.setTheory(new Theory(new FileInputStream("Theory.pl")));
+            // Register stepper
+            var mainStepper = new MockStepper();
+            ((OOLibrary) oolib).register(new Struct("mainStepper"), mainStepper);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            System.err.println("theory not found.");
+        } catch (IOException e) {
+            System.err.println("error loading theory.");
+        } catch (InvalidObjectIdException e) {
+            System.err.println("error registering steppers");
+        } catch (InvalidTheoryException e) {
+            System.err.println("invalid theory.");
+        }
+    }
 
     @FXML
     private void mainToggleState(ActionEvent ev) {
@@ -63,33 +89,6 @@ public class Controller {
             System.out.println("mainStepper is stateful? " + engine.solve("stateful(mainStepper).").isSuccess());
         } catch (MalformedGoalException e) {
             System.err.println("error setting status.");
-        }
-    }
-
-    public Controller() {
-        try {
-            // Allow outputting debug stuff to Java
-            engine.addOutputListener(new OutputListener() {
-                @Override
-                public void onOutput(OutputEvent e) {
-                    outputSB.append(e.getMsg());
-                }
-            });
-            // "Import" interface predicates
-            engine.setTheory(new Theory(new FileInputStream("Theory.pl")));
-            // Register stepper
-            var mainStepper = new MockStepper();
-            ((OOLibrary) oolib).register(new Struct("mainStepper"), mainStepper);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            System.err.println("theory not found.");
-        } catch (IOException e) {
-            System.err.println("error loading theory.");
-        } catch (InvalidObjectIdException e) {
-            System.err.println("error registering steppers");
-        } catch (InvalidTheoryException e) {
-            System.err.println("invalid theory.");
         }
     }
 }

@@ -1,12 +1,8 @@
 package io.github.kmfrick.homeaut;
 
-
+// Mock Stepper class
+// Allows testing the code on x86
 public class MockStepper {
-
-    private Boolean status;
-    public void Stepper() {
-        status = false;
-    }
 
     public Boolean turnOn() {
         System.out.println("Going forward!");
