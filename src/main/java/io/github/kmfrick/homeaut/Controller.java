@@ -29,7 +29,6 @@ public class Controller {
         try {
             // Allow outputting debug stuff to Java
             engine.addOutputListener(new OutputListener() {
-                @Override
                 public void onOutput(OutputEvent e) {
                     outputSB.append(e.getMsg());
                 }
@@ -37,7 +36,7 @@ public class Controller {
             // Define interface predicates
             engine.setTheory(new Theory(new FileInputStream("Theory.pl")));
             // Register stepper
-            var mainStepper = new MockStepper();
+            Stepper mainStepper = new Stepper();
             ((OOLibrary) oolib).register(new Struct("mainStepper"), mainStepper);
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -55,17 +54,17 @@ public class Controller {
     @FXML
     private void mainToggleState(ActionEvent ev) {
         try {
-            var switchQuery = engine.solve("toggle_state(mainStepper).");
-            var state = switchQuery.isSuccess();
+            SolveInfo switchQuery = engine.solve("toggle_state(mainStepper).");
+            Boolean state = switchQuery.isSuccess();
             if (state) {
                 MainTF.setStyle("-fx-background-color: green;");
                 MainTF.getChildren().clear();
-                var resultText = new Text(switchQuery.toString());
+                Text resultText = new Text(switchQuery.toString());
                 MainTF.getChildren().add(resultText);
             } else {
                 MainTF.setStyle("-fx-background-color: red;");
                 MainTF.getChildren().clear();
-                var resultText = new Text(switchQuery.toString());
+                Text resultText = new Text(switchQuery.toString());
                 MainTF.getChildren().add(resultText);
             }
             System.out.println("mainStepper is on? " + engine.solve("on(mainStepper).").isSuccess());
@@ -80,7 +79,7 @@ public class Controller {
     @FXML
     private void mainToggleIsStateful(ActionEvent ev) {
         try {
-            var stateful = ToggleMainCB.isSelected();
+            Boolean stateful = ToggleMainCB.isSelected();
 			if (stateful) {
                 engine.solve("set_is_stateful(mainStepper, true).");
             } else {

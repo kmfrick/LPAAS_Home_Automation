@@ -38,8 +38,8 @@ public class Stepper {
     }
 
     private void forward(Integer delay, Integer steps) throws InterruptedException {
-        for (var i = 0; i < steps; i++) {
-            for (var j = 0; j < Seq.length; j++) {
+        for (int i = 0; i < steps; i++) {
+            for (int j = 0; j < Seq.length; j++) {
                 setStep(Seq[j][0], Seq[j][1], Seq[j][2], Seq[j][3]);
                 Thread.sleep(delay);
             }
@@ -48,8 +48,8 @@ public class Stepper {
     }
 
     private void backward(Integer delay, Integer steps) throws InterruptedException {
-        for (var i = 0; i < steps; i++) {
-            for (var j = Seq.length - 1; j >= 0; j--) {
+        for (int i = 0; i < steps; i++) {
+            for (int j = Seq.length - 1; j >= 0; j--) {
                 setStep(Seq[j][0], Seq[j][1], Seq[j][2], Seq[j][3]);
                 Thread.sleep(delay);
             }
@@ -60,7 +60,7 @@ public class Stepper {
     public Boolean turnOn() {
         System.out.println("Going forward!");
         try {
-            forward(5, 175);
+            forward(1, 125);
         } catch (InterruptedException e) {
             System.err.println("cannot turn on.");
             return false;
@@ -71,7 +71,7 @@ public class Stepper {
     public Boolean turnOff() {
         System.out.println("Going backward!");
         try {
-            backward(5, 175);
+            backward(1, 125);
         } catch (InterruptedException e) {
             System.err.println("cannot turn off.");
             return false;
